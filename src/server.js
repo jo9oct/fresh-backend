@@ -37,7 +37,7 @@ app.use(passport.initialize());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://fresh-frontend-omega.vercel.app/",
     credentials: true,
   })
 );
