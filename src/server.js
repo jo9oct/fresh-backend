@@ -35,12 +35,21 @@ app.use(passport.initialize());
 
 // Enable CORS for frontend at localhost:5173 and allow credentials (cookies)
 
-app.use(
-  cors({
-    origin: "https://fresh-frontend-omega.vercel.app/",
-    credentials: true,
-  })
-);
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://fresh-frontend-omega.vercel.app"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS blocked"));
+    }
+  },
+  credentials: true
+}));
 
 // Set server port
 const PORT = process.env.PORT || 5000;
